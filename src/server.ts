@@ -1,25 +1,17 @@
 import koa from 'koa';
 import cors from 'koa2-cors';
-import Router from 'koa-router';
+import router from './router/router';
 import bodyParser from 'koa-bodyparser';
+import KoaLogger from 'koa-logger';
 
 
 const app = new koa();
-const router = new Router();
 app.use(router.routes());
 app.use(router.allowedMethods());
+app.use(KoaLogger());
 app.use(cors());
 
 app.use(bodyParser());
-
-router.get('/', async (ctx) => {
-  ctx.body = 'Hello World';
-});
-
-router.post('/api', async (ctx) => {
-  ctx.body = ctx.request.body;
-});
-
 
 
 app.listen(3000, () => {
